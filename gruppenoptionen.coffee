@@ -1,31 +1,33 @@
 # Description:
-#   Pugme is the most important thing in life
+#   Dieses Plugin zeigt alle Gruppen an, in denen sich ein Benutzer befindet. 
+#   Zudem lassen sich alle Mitglieder eine gegebenen Gruppe anzeigen.
 #
 # Dependencies:
-#   None
+#   Gruppen Plugin
 #
 # Configuration:
 #   None
 #
 # Commands:
-#   hubot pug me - Receive a pug
-#   hubot pug bomb N - get N pugs
+#   hubot wer ist in Gruppe <Gruppenname>     - Zeigt alle Mitglieder der Gruppe <Gruppenname> an
+#   hubot meine Gruppen                       - Zeigt alle Gruppen des Benutzers an
+#
+# Author
+# Christian Koehler
+
 
 createGroupMapping = (user, groups, groupMapping) ->
   newItem =[]
-  #console.log ("Append user '" + user + "' to group: " + grp) for grp in groups
   for grp in groups
     newItem.push grp,user
     groupMapping.push newItem
     newItem =[]
-  #console.log("Group->Users: " + JSON.stringify(groupMapping))
 
 sucheMitgliederausGruppe = (gesuchteGruppe, groupMapping) ->
   gefundeneBenutzer =[]
   for grp in groupMapping
     if grp[0] == gesuchteGruppe
       gefundeneBenutzer.push grp[1]
-  #console.log("gefundene Gruppen-Mitglieder: " + JSON.stringify(gefundeneBenutzer))
   return gefundeneBenutzer
 
 
@@ -34,7 +36,6 @@ sucheGruppenDesBenutzers = (gesuchterBenutzer, groupMapping) ->
   for grp in groupMapping
     if grp[1] == gesuchterBenutzer
       gefundeneGruppen.push grp[0]
-  #console.log("gefundene Gruppenmitgliedschaften: " + JSON.stringify(gefundeneGruppen))
   return gefundeneGruppen
 
 
@@ -57,7 +58,6 @@ module.exports = (robot) ->
 
   robot.respond /meine Gruppen/i, (msg) ->
     user = robot.brain.userForId(msg.envelope.user['id'])
-    msg.reply "Your name is: #{user['name']}."
     a = robot.brain.get('userGroups') 
     createGroupMapping usr, a[usr].groups, groupMapping for usr of a
     ergebnis = sucheGruppenDesBenutzers user['name'], groupMapping
