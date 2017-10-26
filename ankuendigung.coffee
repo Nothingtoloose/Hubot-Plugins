@@ -9,7 +9,7 @@
 #
 # Commands:
 #   hubot Nachricht "<Nachricht>" "<Raum>[,<Raum>]" - Sendet die Nachricht an den / die angegebenen Räume
-#   hubot Nachricht an alle "<Nachricht>"    - Sendet die Nachricht an die vorgegebenen Raeume
+#   hubot Nachricht an alle "<Nachricht>"    - Sendet die Nachricht an die vorgegebenen Räume
 #
 # Author:
 #   Morgan Delagrange

@@ -1,6 +1,6 @@
 # Description:
-#   Dieses Plugin zeigt alle Gruppen an, in denen sich ein Benutzer befindet. 
-#   Zudem lassen sich alle Mitglieder eine gegebenen Gruppe anzeigen.
+#   Dieses Plugin zeigt alle Rollen an, welche einem Benutzer zugeordnet wurden.
+#   Zudem lassen sich alle Benutzer mit einer bestimmten Rolle anzeigen.
 #
 # Dependencies:
 #   Gruppen Plugin
@@ -9,8 +9,8 @@
 #   None
 #
 # Commands:
-#   hubot wer ist in Gruppe <Gruppenname>     - Zeigt alle Mitglieder der Gruppe <Gruppenname> an
-#   hubot meine Gruppen                       - Zeigt alle Gruppen des Benutzers an
+#   hubot Rollen Mitglieder <Rollenname>     - Zeigt alle Benutzer an, die die Rolle <Rollenname> haben
+#   hubot Rollen                              - Zeigt alle Rollen des Benutzers an
 #
 # Author
 # Christian Koehler
@@ -44,7 +44,7 @@ groupMapping = []
 module.exports = (robot) ->
 
  
-  robot.respond /wer ist in Gruppe \s?(.+)?/i, (msg) ->
+  robot.respond /Rollen Mitglieder \s?(.+)?/i, (msg) ->
     gesucht = msg.match[1]
     a = robot.brain.get('userGroups')
     createGroupMapping usr, a[usr].groups, groupMapping for usr of a
@@ -52,11 +52,11 @@ module.exports = (robot) ->
     if ergebnis.length == 0
       msg.reply ("Die Gruppe '#{gesucht}' existiert nicht")
     else
-      msg.reply ("Folgende Mitglieder sind in der Gruppe '#{gesucht}': #{ergebnis} ") 
+      msg.reply ("Folgende Mitglieder haben die Rolle '#{gesucht}': #{ergebnis} ") 
     groupMapping = []
     gefundeneBenutzer =[]
 
-  robot.respond /meine Gruppen/i, (msg) ->
+  robot.respond /Rollen$/i, (msg) ->
     user = robot.brain.userForId(msg.envelope.user['id'])
     a = robot.brain.get('userGroups') 
     createGroupMapping usr, a[usr].groups, groupMapping for usr of a
@@ -64,7 +64,7 @@ module.exports = (robot) ->
     if ergebnis.length == 0
       msg.reply("Du bist in keiner Gruppe")
     else
-      msg.reply ("Du bist Mitglied in folgenden Gruppen:  #{ergebnis} " )
+      msg.reply ("Du hast folgende Rolle(n):  #{ergebnis} " )
     groupMapping = []
     gefundeneGruppen = []
 
