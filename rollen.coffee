@@ -10,6 +10,7 @@
 #
 # Author:
 #  Nadeem Shabir <ns@talis.com>
+#  Christian Köhler
 
 module.exports = (robot) ->
   # Lookup for all approvers
