@@ -1,5 +1,6 @@
 # Description:
-#   Dieses Plugin dient zum Benachrichtigen des Benutzers, wenn ein Befehl nicht erkannt wurde
+#   Dieses Plugin dient zum Benachrichtigen des Benutzers, wenn ein Befehl nicht erkannt wurde.
+#   Als Erkennungswort wird der Name Hubot verwendet. 
 #
 # Dependencies:
 #   None
